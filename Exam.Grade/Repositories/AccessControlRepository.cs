@@ -11,42 +11,44 @@ using System.Threading.Tasks;
 
 namespace Exam.Grade.Repositories
 {
-    public class AccessControlRepository<TEntity> : IRepository<TEntity,Guid> where TEntity : AccessControlEntity 
+
+    public interface IAccessControlRepository : IRepository<AccessControlEntity, Guid>
+    { 
+    }
+    public class AccessControlRepository : IAccessControlRepository
     {
-        private readonly IDataAccessFacade<TEntity> _dataAccess;
-        public AccessControlRepository(IDataAccessFacade<TEntity> dataAccess)
+        private readonly IDataAccessFacade<AccessControlEntity> _dataAccess;
+        public AccessControlRepository(IDataAccessFacade<AccessControlEntity> dataAccess)
         {
             _dataAccess = dataAccess;
         }
-        public void Create(TEntity entity)
+        public void Create(AccessControlEntity entity)
         {
             _ = entity ?? throw new ArgumentNullException($"{nameof(entity)} ");
-            _dataAccess.Create(new DataAccessRequest<TEntity> { Data = entity });
+            _dataAccess.Create(new DataAccessRequest<AccessControlEntity> { Data = entity });
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(AccessControlEntity entity)
         {
             _ = entity ?? throw new ArgumentNullException($"{nameof(entity)} ");
-            _dataAccess.Delete(new DataAccessRequest<TEntity> { Data = entity });
+            _dataAccess.Delete(new DataAccessRequest<AccessControlEntity> { Data = entity });
         }
 
-        public TEntity Read(Guid id)
+        public AccessControlEntity Read(Guid id)
         {
-            return _dataAccess.Read(new DataAccessRequest<TEntity>());
+            return _dataAccess.Read(new DataAccessRequest<AccessControlEntity>());
         }
 
-        public IEnumerable<TEntity>? Read()
+        public IEnumerable<AccessControlEntity>? Read()
         {
-            return AccessControlEntity as IEnumerable<TEntity>;
+            return AccessControlEntity as IEnumerable<AccessControlEntity>;
         }
 
-        public void Update(TEntity entity)
+        public void Update(AccessControlEntity entity)
         {
             _ = entity ?? throw new ArgumentNullException($"{nameof(entity)} ");
-            _dataAccess.Update(new DataAccessRequest<TEntity> { Data = entity });
+            _dataAccess.Update(new DataAccessRequest<AccessControlEntity> { Data = entity });
         }
-
-     
 
         public IEnumerable<AccessControlEntity> AccessControlEntity
         {
@@ -54,10 +56,10 @@ namespace Exam.Grade.Repositories
             {
                 return new List<AccessControlEntity>
                 {
-                    new AccessControlEntity {Id =Guid.NewGuid(),RoleId="Admin", UserId="AdminUser", Permissions=new List<string>{"Create","Read","Update","Delete" }},
-                    new AccessControlEntity {Id =Guid.NewGuid(),RoleId="Manager", UserId="ManagerUser", Permissions=new List<string>{"Create","Read","Update"}},
-                    new AccessControlEntity {Id =Guid.NewGuid(),RoleId="Supervisor", UserId="SupervisorUser", Permissions=new List<string>{"Create","Read"}},
-                    new AccessControlEntity {Id =Guid.NewGuid(),RoleId="Guest", UserId="GuestUser", Permissions=new List<string>{"Read"}},
+                    new AccessControlEntity {RoleId="Admin", UserId="AdminUser", Permissions=new List<string>{"Create","Read","Update","Delete" }},
+                    new AccessControlEntity {RoleId="Manager", UserId="ManagerUser", Permissions=new List<string>{"Create","Read","Update"}},
+                    new AccessControlEntity {RoleId="Supervisor", UserId="SupervisorUser", Permissions=new List<string>{"Create","Read"}},
+                    new AccessControlEntity {RoleId="Guest", UserId="GuestUser", Permissions=new List<string>{"Read"}},
                 };
             }
 

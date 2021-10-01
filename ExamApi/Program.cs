@@ -3,6 +3,7 @@ using Exam.Grade.Repositories;
 using Exam.Grade.Services;
 using Microsoft.OpenApi.Models;
 using Points.DataAccess;
+using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,9 +22,11 @@ builder.Services.AddSingleton(typeof(IDataAccessFacade<>), typeof(DataAccessFaca
 
 //builder.Services.AddSingleton(typeof(IRepository<,>), typeof(AccessControlRepository<>));
 
-builder.Services.AddSingleton(typeof(IRepository<,>), typeof(AccessControlRepository<>));
+//builder.Services.AddScoped(typeof(IRepository<,>), typeof(AccessControlRepository));
 
+builder.Services.AddSingleton<IAccessControlRepository, AccessControlRepository>();
 builder.Services.AddSingleton<IAccessControlService, AccessControlService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

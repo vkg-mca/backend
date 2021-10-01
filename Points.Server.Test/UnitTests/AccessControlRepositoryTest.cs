@@ -12,12 +12,12 @@ namespace Points.Server.Test.UnitTests
     [Trait("Category", "UnitTest")]
     public class AccessControlRepositoryTest
     {
-        private readonly AccessControlRepository<AccessControlEntity> _repo;
+        private readonly AccessControlRepository _repo;
         private readonly IDataAccessFacade<AccessControlEntity> _dataAccess; 
         public AccessControlRepositoryTest()
         {
             _dataAccess = A.Fake<IDataAccessFacade<AccessControlEntity>>();
-            _repo = new AccessControlRepository<AccessControlEntity>(_dataAccess);
+            _repo = new AccessControlRepository(_dataAccess);
         }
         [Fact]
         public void CreateAccessControl_WithNullValue_ReturnsArumentNullException()

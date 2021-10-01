@@ -7,27 +7,36 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Points.DataAccess;
+using Points.DataAccess.Entities;
 
 namespace Exam.Grade.Services
 {
     public class AccessControlService : IAccessControlService
     {
-        private readonly IRepository<AccessControl,Guid> _repository;
-        public AccessControlService(IRepository<AccessControl, Guid> repository)
+        private readonly IAccessControlRepository _repository;
+        public AccessControlService(IAccessControlRepository repository)
         {
             _repository = repository;
         }
         public AccessControl GetPermission(Guid id)
         {
-            return _repository.Read(id);
+            var entiry= _repository.Read(id);
+            return new AccessControl {Permissions = entiry.Permissions ,RoleId = entiry.RoleId, UserId= entiry.UserId  };
         }
         public IEnumerable<AccessControl> GetPermissions()
         {
-            return _repository.Read();  
+            var permissions = new List<AccessControl>();
+          var entities = _repository.Read();
+            foreach (var entity in entities)
+            {
+                permissions.Add(new AccessControl { Permissions = entity.Permissions, UserId = entity.UserId, RoleId = entity.RoleId });
+            }
+
+            return permissions;
         }
         public void SavePermission(AccessControl accessControl)
         {
-            _repository.Create(accessControl);
+            _repository.Create(new AccessControlEntity {RoleId = accessControl.RoleId,UserId = accessControl.UserId, Permissions = accessControl.Permissions });
         }
     }
 }
