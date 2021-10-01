@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Points.Server.Test.UnitTests
 {
-    [Trait("Category", "UnitTest")]
+    [Trait("Category", "Unit Test")]
     public class AccessControlRepositoryTest
     {
         private readonly AccessControlRepository _repo;
@@ -38,8 +38,5 @@ namespace Points.Server.Test.UnitTests
 
             A.CallTo(() => _dataAccess.Create(A<DataAccessRequest<AccessControlEntity>>._)).MustHaveHappened();
         }
-
-
-       
     }
 }

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Points.Server", "Exam.Grade
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Points.DataAccess", "Points.DataAccess\Points.DataAccess.csproj", "{5FA4BBC0-DCBD-45DC-8FD8-EEC962DCBF93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Points.Server.Test", "Points.Server.Test\Points.Server.Test.csproj", "{33D14295-2A97-4E74-9765-A337D99D59D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Points.Server.UnitTest", "Points.Server.Test\Points.Server.UnitTest.csproj", "{33D14295-2A97-4E74-9765-A337D99D59D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Points.Server.IntegrationTest", "Points.Server.IntegrationTest\Points.Server.IntegrationTest.csproj", "{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{33D14295-2A97-4E74-9765-A337D99D59D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33D14295-2A97-4E74-9765-A337D99D59D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33D14295-2A97-4E74-9765-A337D99D59D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
