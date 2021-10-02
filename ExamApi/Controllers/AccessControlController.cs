@@ -12,32 +12,39 @@ namespace Exam.Api.Controllers
     {
 
         private readonly ILogger<AccessControlController> _logger;
-        private readonly IAccessControlService _gradeService;
+        private readonly IAccessControlService _accessControlService;
 
-        public AccessControlController(ILogger<AccessControlController> logger, IAccessControlService gradeService)
+        public AccessControlController(ILogger<AccessControlController> logger, IAccessControlService accessControlService)
         {
             _logger = logger;
-            _gradeService = gradeService;
+            _accessControlService = accessControlService;
         }
 
         [HttpGet]
         [ApiVersion("1.0")]
         public IEnumerable<AccessControl> Get()
         { 
-            return _gradeService.GetPermissions();
+            return _accessControlService.GetPermissions();
+        }
+
+        [HttpGet("{userId:required}")]
+        [ApiVersion("1.0")]
+        public IEnumerable<AccessControl> Get(string userId)
+        {
+            return _accessControlService.GetPermissions();
         }
 
 
-        //[HttpPost()]
-        //[Consumes(MediaTypeNames.Application.Json)]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<ActionResult<AccessControl>> PostGrades([FromBody] AccessControl grade)
-        //{
-        //    if (grade.Id.StudentId<=0 || grade.Id.SubjectId <= 0)
-        //        return BadRequest();
-        //    _gradeService.PostGrades (grade);
-        //    return CreatedAtAction(nameof(Get), new { identity = grade.Id  }, grade);
-        //}
+        [HttpPost()]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AccessControl>> PostAccessControlPermissions([FromBody] AccessControl accessControl)
+        {
+            if (string.IsNullOrWhiteSpace(accessControl.RoleId) || string.IsNullOrWhiteSpace(accessControl.UserId) || !(accessControl.Permissions.Any()))
+                return BadRequest();
+            _accessControlService.SavePermission(accessControl);
+            return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
+        }
     }
 }

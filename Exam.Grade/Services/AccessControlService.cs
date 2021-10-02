@@ -23,6 +23,12 @@ namespace Exam.Grade.Services
             var entiry= _repository.Read(id);
             return new AccessControl {Permissions = entiry.Permissions ,RoleId = entiry.RoleId, UserId= entiry.UserId  };
         }
+
+        public AccessControl GetPermission(string userId)
+        {
+            var entiry = _repository.Read(userId);
+            return new AccessControl { Permissions = entiry.Permissions, RoleId = entiry.RoleId, UserId = entiry.UserId };
+        }
         public IEnumerable<AccessControl> GetPermissions()
         {
             var permissions = new List<AccessControl>();

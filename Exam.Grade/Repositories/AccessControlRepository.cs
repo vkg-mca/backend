@@ -11,10 +11,6 @@ using System.Threading.Tasks;
 
 namespace Exam.Grade.Repositories
 {
-
-    public interface IAccessControlRepository : IRepository<AccessControlEntity, Guid>
-    { 
-    }
     public class AccessControlRepository : IAccessControlRepository
     {
         private readonly IDataAccessFacade<AccessControlEntity> _dataAccess;
@@ -36,12 +32,16 @@ namespace Exam.Grade.Repositories
 
         public AccessControlEntity Read(Guid id)
         {
-            return _dataAccess.Read(new DataAccessRequest<AccessControlEntity>());
+            return _dataAccess.Read(new DataAccessRequest<AccessControlEntity>() { Data = new AccessControlEntity { Id = id } });
         }
 
+        public AccessControlEntity Read(string userId)
+        {
+            return _dataAccess.Read(new DataAccessRequest<AccessControlEntity>() { Data = new AccessControlEntity { UserId = userId } });
+        }
         public IEnumerable<AccessControlEntity>? Read()
         {
-            return AccessControlEntity as IEnumerable<AccessControlEntity>;
+            return AccessControlEntity;
         }
 
         public void Update(AccessControlEntity entity)
