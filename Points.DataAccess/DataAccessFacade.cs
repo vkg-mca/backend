@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Points.DataAccess.Facades
+﻿namespace Points.DataAccess.Facades
 {
     public class DataAccessFacade<TEntity> : IDataAccessFacade<TEntity>
     {
@@ -8,10 +6,16 @@ namespace Points.DataAccess.Facades
         public DataAccessFacade()
         {
             _data = new List<TEntity> (10);
+
         }
         public TEntity Read(DataAccessRequest<TEntity> request)
         {
            return _data.FirstOrDefault(x => x.Equals(request.Data));
+        }
+
+        public IEnumerable<TEntity> ReadMany(DataAccessRequest<TEntity> request)
+        {
+            return _data.Where (x => x.Equals(request.Data));
         }
         public void Create(DataAccessRequest<TEntity> request)
         {

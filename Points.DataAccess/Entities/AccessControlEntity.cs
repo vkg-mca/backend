@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Points.DataAccess.Entities
+﻿namespace Points.DataAccess.Entities
 {
     public class AccessControlEntity: BaseEntity<Guid>
     {

@@ -1,12 +1,5 @@
 ﻿using Exam.Grade.DomainObjects;
 using Exam.Grade.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using Points.DataAccess;
 using Points.DataAccess.Entities;
 
 namespace Exam.Grade.Services

@@ -4,6 +4,7 @@
     {
         void Create(DataAccessRequest<TEntity> request);
         TEntity Read(DataAccessRequest<TEntity> request);
+        IEnumerable<TEntity> ReadMany(DataAccessRequest<TEntity> request);
         void Update(DataAccessRequest<TEntity> request);
         void Delete(DataAccessRequest<TEntity> request);
     }

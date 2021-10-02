@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Points.DataAccess.Entities
+﻿namespace Points.DataAccess.Entities
 {
     public class BaseEntity<TIdentity>
     {
