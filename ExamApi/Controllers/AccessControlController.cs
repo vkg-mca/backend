@@ -46,5 +46,19 @@ namespace Exam.Api.Controllers
             _accessControlService.SavePermission(accessControl);
             return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
         }
+
+
+        [HttpPut()]
+        [Route("{userId}")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AccessControl>> PutAccessControlPermissions([FromRoute] string userId, [FromBody] AccessControl accessControl)
+        {
+            if ( string.IsNullOrWhiteSpace(accessControl.UserId) )
+                return BadRequest();
+            _accessControlService.SavePermission(accessControl);
+            return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
+        }
     }
 }
