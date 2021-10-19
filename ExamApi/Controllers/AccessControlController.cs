@@ -60,5 +60,18 @@ namespace Exam.Api.Controllers
             _accessControlService.SavePermission(accessControl);
             return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
         }
+
+
+        [HttpDelete]
+        [Route("{userId}")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<bool>> Delete(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                return BadRequest();
+            return true;
+        }
     }
 }
