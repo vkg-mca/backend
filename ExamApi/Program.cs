@@ -15,6 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Points API", Version = "v1" });
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "Points.Api.xml");
+    c.IncludeXmlComments(filePath);
 });
 
 //builder.Services.AddSingleton(typeof(ExamContext));

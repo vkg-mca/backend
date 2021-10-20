@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <LangVersion>latest</LangVersion>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <DocumentationFile>\bin\Debug\net6.0\\Points.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
