@@ -12,7 +12,8 @@ namespace Exam.Grade.Repositories
         private readonly IDataAccessFacade<AccessControlEntity> _dataAccess;
         private List<AccessControlEntity> _entities;
 
-        public AccessControlRepository(IDataAccessFacade<AccessControlEntity> dataAccess, ILogger<AccessControlRepository> logger)
+        public AccessControlRepository(IDataAccessFacade<AccessControlEntity> dataAccess,
+            ILogger<AccessControlRepository> logger)
         {
             _dataAccess = dataAccess;
             _logger = logger;

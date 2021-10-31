@@ -1,9 +1,11 @@
-﻿namespace Points.DataAccess.Facades
+﻿using Microsoft.Extensions.Logging;
+
+namespace Points.DataAccess.Facades
 {
     public class DataAccessFacade<TEntity> : IDataAccessFacade<TEntity>
     {
         private readonly List<TEntity> _data;
-        public DataAccessFacade()
+        public DataAccessFacade(ILogger<DataAccessFacade<TEntity>> logger)
         {
             _data = new List<TEntity> (10);
 
