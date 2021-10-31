@@ -1,4 +1,6 @@
-﻿using Points.DataAccess;
+﻿using Exam.Grade.Services;
+using Microsoft.Extensions.Logging;
+using Points.DataAccess;
 using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
 
@@ -6,14 +8,18 @@ namespace Exam.Grade.Repositories
 {
     public class AccessControlRepository : IAccessControlRepository
     {
+        private readonly ILogger<AccessControlRepository> _logger;
         private readonly IDataAccessFacade<AccessControlEntity> _dataAccess;
         private List<AccessControlEntity> _entities;
-        public AccessControlRepository(IDataAccessFacade<AccessControlEntity> dataAccess)
+
+        public AccessControlRepository(IDataAccessFacade<AccessControlEntity> dataAccess, ILogger<AccessControlRepository> logger)
         {
             _dataAccess = dataAccess;
+            _logger = logger;
             _entities = new List<AccessControlEntity>(10);
             FillAccessControlEntity();
         }
+
         public void Create(AccessControlEntity entity)
         {
             _ = entity ?? throw new ArgumentNullException($"{nameof(entity)} ");

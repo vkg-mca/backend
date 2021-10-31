@@ -14,7 +14,8 @@ namespace Exam.Api.Controllers
         private readonly ILogger<AccessControlController> _logger;
         private readonly IAccessControlService _accessControlService;
 
-        public AccessControlController(ILogger<AccessControlController> logger, IAccessControlService accessControlService)
+        public AccessControlController(ILogger<AccessControlController> logger, 
+            IAccessControlService accessControlService)
         {
             _logger = logger;
             _accessControlService = accessControlService;
@@ -25,11 +26,8 @@ namespace Exam.Api.Controllers
        /// </summary>
        /// <returns>List of permissions</returns>
         [HttpGet]
-        [ApiVersion("1.0")]
         public IEnumerable<AccessControl> Get()
-        { 
-            return _accessControlService.GetPermissions();
-        }
+            => _accessControlService.GetPermissions();
 
         /// <summary>
         /// Retrieves permissions for specific user
@@ -37,11 +35,8 @@ namespace Exam.Api.Controllers
         /// <param name="userId">user for whom permission is requested</param>
         /// <returns>List of permissions</returns>
         [HttpGet("{userId:required}")]
-        [ApiVersion("1.0")]
-        public IEnumerable<AccessControl> Get(string userId)
-        {
-            return _accessControlService.GetPermissions();
-        }
+        public AccessControl Get(string userId)
+            => _accessControlService.GetPermission(userId);
 
         /// <summary>
         /// Creates a new permissions entry in the system
