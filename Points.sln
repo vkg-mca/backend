@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Points.Server.UnitTest", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Points.Server.IntegrationTest", "Points.Server.IntegrationTest\Points.Server.IntegrationTest.csproj", "{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PointsDb", "PointsDb\PointsDb.sqlproj", "{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Points.Entities", "Points.Entities\Points.Entities.csproj", "{32A14F34-1CF1-4261-8DC3-F8B06AD0276E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,16 @@ Global
 		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB317A48-6668-45A0-B85B-9D0D8DA63BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE831142-1D5E-40A2-AEE5-A02B6DD00A9D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{32A14F34-1CF1-4261-8DC3-F8B06AD0276E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A14F34-1CF1-4261-8DC3-F8B06AD0276E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A14F34-1CF1-4261-8DC3-F8B06AD0276E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A14F34-1CF1-4261-8DC3-F8B06AD0276E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

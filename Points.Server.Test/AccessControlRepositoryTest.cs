@@ -1,6 +1,7 @@
 using Exam.Grade.Repositories;
 using FakeItEasy;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Points.DataAccess;
 using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
@@ -14,10 +15,12 @@ namespace Points.Server.Test.UnitTests
     {
         private readonly AccessControlRepository _repo;
         private readonly IDataAccessFacade<AccessControlEntity> _dataAccess; 
+        private readonly ILogger<AccessControlRepository> _logger;
         public AccessControlRepositoryTest()
         {
             _dataAccess = A.Fake<IDataAccessFacade<AccessControlEntity>>();
-            _repo = new AccessControlRepository(_dataAccess);
+            _logger = A.Fake<ILogger<AccessControlRepository>>();
+            _repo = new AccessControlRepository(_dataAccess, _logger);
         }
         [Fact]
         public void CreateAccessControl_WithNullValue_ReturnsArumentNullException()

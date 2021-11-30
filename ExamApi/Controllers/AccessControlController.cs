@@ -7,7 +7,6 @@ namespace Exam.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Route("exam/grades")]
     public class AccessControlController : ControllerBase
     {
 
@@ -25,7 +24,8 @@ namespace Exam.Api.Controllers
        /// Retrieves all permission sets defined in the system
        /// </summary>
        /// <returns>List of permissions</returns>
-        [HttpGet]
+        //[HttpGet]
+        [HttpGet("accessControlDetail")]
         public IEnumerable<AccessControl> Get()
             => _accessControlService.GetPermissions();
 
@@ -79,7 +79,6 @@ namespace Exam.Api.Controllers
         /// </summary>
         /// <param name="userId">user for whom permission is deleted</param>
         /// <returns>status of the operation</returns>
-
         [HttpDelete]
         [Route("{userId}")]
         [Consumes(MediaTypeNames.Application.Json)]

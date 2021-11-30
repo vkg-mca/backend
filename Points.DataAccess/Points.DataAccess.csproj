@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DataAccessRequest.cs~RF7056387.TMP" />
+    <Compile Remove="Facades\**" />
+    <EmbeddedResource Remove="Facades\**" />
+    <None Remove="Facades\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Facades\" />
+    <None Remove="DataAccessRequest.cs~RF7056387.TMP" />
   </ItemGroup>
 
   <ItemGroup>

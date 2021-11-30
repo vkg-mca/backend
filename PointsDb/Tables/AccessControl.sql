@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[AccessControl]
+(
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
+    [UserId] VARCHAR(50) NOT NULL, 
+    [RoleId] VARCHAR(50) NOT NULL
+)

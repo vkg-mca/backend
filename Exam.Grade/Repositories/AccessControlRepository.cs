@@ -26,6 +26,8 @@ namespace Exam.Grade.Repositories
             _ = entity ?? throw new ArgumentNullException($"{nameof(entity)} ");
             _dataAccess.Create(new DataAccessRequest<AccessControlEntity> { Data = entity });
             _entities.Add(entity);
+
+
         }
 
         public void Delete(AccessControlEntity entity)
@@ -35,21 +37,24 @@ namespace Exam.Grade.Repositories
             _entities.Remove(entity);
         }
 
-        public AccessControlEntity Read(Guid id)
+        public AccessControlEntity? Read(Guid id)
         {
+            if (id == default)
+                throw new ArgumentException($"Access Control id cannot be an empty/default GUID", nameof(id));
             var entity = _dataAccess.Read(new DataAccessRequest<AccessControlEntity>() { Data = new AccessControlEntity { Id = id } });
             entity = _entities.Where(x => x.Id == id).FirstOrDefault();
             return entity;
-
         }
 
         public AccessControlEntity Read(string userId)
         {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentException($"Access Control id cannot be an empty/default GUID", nameof(userId));
             var entity = _dataAccess.Read(new DataAccessRequest<AccessControlEntity>() { Data = new AccessControlEntity { UserId = userId } });
             entity = _entities.Where(x => x.UserId == userId).FirstOrDefault();
             return entity;
         }
-        public IEnumerable<AccessControlEntity>? Read()
+        public IEnumerable<AccessControlEntity> Read()
         {
             var entities = _dataAccess.ReadMany(new DataAccessRequest<AccessControlEntity>());
             entities = _entities;
@@ -58,7 +63,7 @@ namespace Exam.Grade.Repositories
 
         public void Update(AccessControlEntity entity)
         {
-            _ = entity ?? throw new ArgumentNullException($"{nameof(entity)} ");
+            _ = entity ?? throw new ArgumentNullException($"{nameof(entity)}");
             _dataAccess.Update(new DataAccessRequest<AccessControlEntity> { Data = entity });
         }
 
