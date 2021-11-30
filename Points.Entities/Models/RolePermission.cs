@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Points.Entities.Entities
+namespace Points.Entities.Models
 {
     public partial class RolePermission
     {

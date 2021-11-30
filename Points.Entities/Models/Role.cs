@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Points.Entities.Entities
+namespace Points.Entities.Models
 {
-    public partial class User
+    public partial class Role
     {
         public int Id { get; set; }
         public string Code { get; set; } = null!;

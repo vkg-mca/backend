@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Points.Entities.Entities
+namespace Points.Entities.Models
 {
     public partial class PointsDbContext : DbContext
     {

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Points.Entities;
-using Points.Entities.Entities;
+using Points.Entities.Models;
 
 #nullable disable
 
