@@ -76,6 +76,18 @@ namespace Points.Entities.Models
             modelBuilder.Entity<RolePermission>(entity =>
             {
                 entity.ToTable("RolePermission");
+
+                entity.HasOne(d => d.Permission)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(d => d.PermissionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RolePermi__Permi__2F10007B");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.RolePermissions)
+                    .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RolePermi__RoleI__2E1BDC42");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -95,7 +107,17 @@ namespace Points.Entities.Models
             {
                 entity.ToTable("UserRole");
 
-                entity.Property(e => e.UserId).HasColumnName("userId");
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.UserRoles)
+                    .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserRole__RoleId__30F848ED");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserRoles)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserRole__UserId__300424B4");
             });
 
             OnModelCreatingPartial(modelBuilder);
