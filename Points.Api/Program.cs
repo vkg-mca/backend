@@ -26,8 +26,8 @@ builder.Services.AddSingleton(typeof(IDataAccessFacade<>), typeof(DataAccessFaca
 
 //builder.Services.AddScoped(typeof(IRepository<,>), typeof(AccessControlRepository));
 
-builder.Services.AddSingleton<IAccessControlRepository, AccessControlRepository>();
-builder.Services.AddSingleton<IAccessControlService, AccessControlService>();
+builder.Services.AddSingleton<IAccessControlRepositoryV2, AccessControlRepositoryV2>();
+builder.Services.AddSingleton<IAccessControlService, AccessControlServiceV2>();
 
 var app = builder.Build();
 

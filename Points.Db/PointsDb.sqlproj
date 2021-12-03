@@ -64,9 +64,6 @@
     <Build Include="Tables\AccessControl.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PointsDb.publish.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <PostDeploy Include="Scripts\PointsDb.PostDeployment.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </PostDeploy>

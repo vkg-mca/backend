@@ -7,37 +7,43 @@ using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
 using System;
 using Xunit;
+using Points.Entities.Models;
+using System.Threading.Tasks;
 
 namespace Points.Server.Test.UnitTests
 {
     [Trait("Category", "Unit Test")]
     public class AccessControlRepositoryTest
     {
-        private readonly AccessControlRepository _repo;
-        private readonly IDataAccessFacade<AccessControlEntity> _dataAccess; 
-        private readonly ILogger<AccessControlRepository> _logger;
+        private readonly AccessControlRepositoryV2 _repo;
+        private readonly IDataAccessFacade<AccessControlEntity> _dataAccess;
+        private readonly PointsDbContext _context;
+        private readonly ILogger<AccessControlRepositoryV2> _logger;
         public AccessControlRepositoryTest()
         {
             _dataAccess = A.Fake<IDataAccessFacade<AccessControlEntity>>();
-            _logger = A.Fake<ILogger<AccessControlRepository>>();
-            _repo = new AccessControlRepository(_dataAccess, _logger);
+            _context = A.Fake<PointsDbContext>();
+            _logger = A.Fake<ILogger<AccessControlRepositoryV2>>();
+            _repo = new AccessControlRepositoryV2(_context, _logger);
         }
         [Fact]
-        public void CreateAccessControl_WithNullValue_ReturnsArumentNullException()
+        public async Task CreateAccessControl_WithNullValue_ReturnsArumentNullException()
         {
-            AccessControlEntity entity = null;
+            UserRole entity = null;
 
-            Action act = () => _repo.Create(entity);
+            Action act = async () => await _repo.CreateAsync(entity)
+            .ConfigureAwait(false);
 
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void CreateAccessControl_WithEntity_DataAccessMustHaveCalled()
+        public async Task CreateAccessControl_WithEntity_DataAccessMustHaveCalled()
         {
-            var entity = A.Fake<AccessControlEntity>();
+            var entity = A.Fake<UserRole>();
 
-            _repo.Create(entity);
+            await _repo.CreateAsync(entity)
+                .ConfigureAwait(false);
 
             A.CallTo(() => _dataAccess.Create(A<DataAccessRequest<AccessControlEntity>>._)).MustHaveHappened();
         }

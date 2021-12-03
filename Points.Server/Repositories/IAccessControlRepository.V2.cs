@@ -12,5 +12,6 @@ namespace Points.Server.Repositories
     public interface IAccessControlRepositoryV2 : IRepositoryV2<int, UserRole>
 {
         Task<UserRole?> GetAsync(string userId) => throw new NotImplementedException();
+        Task DeleteAsync(string userId) => throw new NotImplementedException();
     }
 }

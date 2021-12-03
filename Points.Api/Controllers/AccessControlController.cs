@@ -1,4 +1,4 @@
-﻿using Points.Server.DomainObjects;
+﻿using Points.Server.Models;
 using Points.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
@@ -26,8 +26,9 @@ namespace Exam.Api.Controllers
        /// <returns>List of permissions</returns>
         //[HttpGet]
         [HttpGet("accessControlDetail")]
-        public IEnumerable<AccessControl> Get()
-            => _accessControlService.GetPermissions();
+        public async Task<IEnumerable<AccessControl>> GetAsync()
+            => await _accessControlService.GetPermissionsAsync()
+            .ConfigureAwait(false) ;
 
         /// <summary>
         /// Retrieves permissions for specific user
@@ -35,8 +36,9 @@ namespace Exam.Api.Controllers
         /// <param name="userId">user for whom permission is requested</param>
         /// <returns>List of permissions</returns>
         [HttpGet("{userId:required}")]
-        public AccessControl Get(string userId)
-            => _accessControlService.GetPermission(userId);
+        public async Task <AccessControl> Get(string userId)
+            => await _accessControlService.GetPermissionAsync(userId)
+            .ConfigureAwait(false);
 
         /// <summary>
         /// Creates a new permissions entry in the system
@@ -49,9 +51,10 @@ namespace Exam.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AccessControl>> PostAccessControlPermissionsAsync([FromBody] AccessControl accessControl)
         {
-            if (string.IsNullOrWhiteSpace(accessControl.RoleId) || string.IsNullOrWhiteSpace(accessControl.UserId) || !(accessControl.Permissions.Any()))
+            if (accessControl.RoleId<=0 || string.IsNullOrWhiteSpace(accessControl.UserId) || !(accessControl.Permissions.Any()))
                 return BadRequest();
-            _accessControlService.SavePermission(accessControl);
+            await _accessControlService.SavePermissionAsync(accessControl)
+                .ConfigureAwait(false); 
             return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
         }
 
@@ -70,7 +73,8 @@ namespace Exam.Api.Controllers
         {
             if ( string.IsNullOrWhiteSpace(accessControl.UserId) )
                 return BadRequest();
-            _accessControlService.SavePermission(accessControl);
+            await _accessControlService.SavePermissionAsync(accessControl)
+                .ConfigureAwait(false) ;
             return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
         }
 

@@ -9,10 +9,10 @@ namespace Points.Server.Services
     public class AccessControlServiceV2 : IAccessControlService
     {
         private readonly IAccessControlRepositoryV2 _repository;
-        private readonly ILogger<AccessControlService> _logger;
+        private readonly ILogger<AccessControlServiceV2> _logger;
 
         public AccessControlServiceV2(IAccessControlRepositoryV2 repository,
-            ILogger<AccessControlService> logger)
+            ILogger<AccessControlServiceV2> logger)
         {
             _logger = logger;
             _repository = repository;
@@ -50,5 +50,23 @@ namespace Points.Server.Services
                 throw new ArgumentException($"Access Control cannot be an empty/null", nameof(accessControl));
             await _repository.CreateAsync(new UserRole());
         }
+
+
+
+        public async Task DeletePermissionAsync(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException($"Access Control id cannot be zero or negative number", nameof(id)); ;
+            await _repository.DeleteAsync(id)
+                .ConfigureAwait(false);
+        }
+        public async Task DeletePermissionAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentException($"UserId cannot be empty/blank", nameof(userId)); ;
+            await _repository.DeleteAsync(userId)
+                .ConfigureAwait(false);
+        }
+
     }
 }

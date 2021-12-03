@@ -6,25 +6,39 @@ using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
 using Points.Entities.Models;
 using Points.Server.Repositories;
+using System.Security.Principal;
 
 namespace Points.Server.Repositories
 {
     public class AccessControlRepositoryV2 : IAccessControlRepositoryV2
     {
         private readonly PointsDbContext _context;
-        public AccessControlRepositoryV2(PointsDbContext context)
+        private readonly ILogger<AccessControlRepositoryV2> _logger;
+        public AccessControlRepositoryV2(PointsDbContext context, ILogger<AccessControlRepositoryV2> logger)
         {
             _context = context;
+            _logger= logger;
         }
         public async Task<IEnumerable<UserRole?>> GetAllAsync()
-        {
-            return await _context.UserRoles.ToListAsync()
-                .ConfigureAwait(false); ;
-        }
+            => await _context.UserRoles.ToListAsync()
+                .ConfigureAwait(false);
 
         public async Task<UserRole?> GetAsync(int identity)
         {
+            if (identity <= 0)
+                throw new ArgumentException(
+                    $"Identity cannot be less than or equal to zero", nameof(identity));
             return await _context.UserRoles.FindAsync(identity)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<UserRole?> GetAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentException(
+                    $"userId cannot be null/empty", nameof(userId));
+            return await _context.UserRoles.Where(x => x.User.Code == userId)
+                .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
         }
 
@@ -35,7 +49,7 @@ namespace Points.Server.Repositories
                     $"Source entity id {entity.Id} and target entity id {identity} do not match");
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync()
-                .ConfigureAwait(false); ;
+                .ConfigureAwait(false);
         }
 
         public async Task CreateAsync(UserRole entity)
@@ -49,6 +63,19 @@ namespace Points.Server.Repositories
         {
             var entity = await _context.UserRoles.FindAsync(identity)
                 .ConfigureAwait(false); ;
+            await Delete(entity);
+        }
+
+        public async Task DeleteAsync(string userId)
+        {
+            var entity = await _context.UserRoles.Where(x => x.User.Code == userId)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+            await Delete(entity);
+        }
+
+        private async Task Delete(UserRole? entity)
+        {
             if (entity == null) return;
             _context.UserRoles.Remove(entity);
             await _context.SaveChangesAsync();

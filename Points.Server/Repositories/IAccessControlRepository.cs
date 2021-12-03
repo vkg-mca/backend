@@ -1,11 +1,11 @@
-﻿using Points.DataAccess.Entities;
+﻿//using Points.DataAccess.Entities;
 
-namespace Points.Server.Repositories
-{
+//namespace Points.Server.Repositories
+//{
 
-    public interface IAccessControlRepository : IRepository<AccessControlEntity, Guid>
-    {
-        AccessControlEntity Read(string userId);
-    }
+//    public interface IAccessControlRepository : IRepository<AccessControlEntity, Guid>
+//    {
+//        AccessControlEntity Read(string userId);
+//    }
     
-}
+//}

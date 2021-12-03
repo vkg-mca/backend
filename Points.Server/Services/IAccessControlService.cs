@@ -8,5 +8,7 @@ namespace Points.Server.Services
         Task<AccessControl> GetPermissionAsync(string userId);
         Task<IEnumerable<AccessControl>> GetPermissionsAsync();
         Task SavePermissionAsync(AccessControl accessControl);
+        Task DeletePermissionAsync(int id);
+        Task DeletePermissionAsync(string userId);
     }
 }
