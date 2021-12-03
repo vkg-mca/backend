@@ -16,7 +16,7 @@ namespace Points.Entities.Models
         {
         }
 
-        public virtual DbSet<AccessControl> AccessControls { get; set; } = null!;
+        //public virtual DbSet<AccessControl> AccessControls { get; set; } = null!;
         public virtual DbSet<Permission> Permissions { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<RolePermission> RolePermissions { get; set; } = null!;
@@ -34,18 +34,18 @@ namespace Points.Entities.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AccessControl>(entity =>
-            {
-                entity.ToTable("AccessControl");
+            //modelBuilder.Entity<AccessControl>(entity =>
+            //{
+            //    entity.ToTable("AccessControl");
 
-                entity.Property(e => e.RoleId)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.RoleId)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
+            //    entity.Property(e => e.UserId)
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
+            //});
 
             modelBuilder.Entity<Permission>(entity =>
             {

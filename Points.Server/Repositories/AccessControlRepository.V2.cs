@@ -16,14 +16,16 @@ namespace Points.Server.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<UserRole>> GetAllAsync()
+        public async Task<IEnumerable<UserRole?>> GetAllAsync()
         {
-            return await _context.UserRoles.ToListAsync();
+            return await _context.UserRoles.ToListAsync()
+                .ConfigureAwait(false); ;
         }
 
-        public async Task<UserRole> GetAsync(int identity)
+        public async Task<UserRole?> GetAsync(int identity)
         {
-            return await _context.UserRoles.FindAsync(identity).ConfigureAwait(false);
+            return await _context.UserRoles.FindAsync(identity)
+                .ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(int identity, UserRole entity)
@@ -32,18 +34,21 @@ namespace Points.Server.Repositories
                 throw new AccessViolationException(
                     $"Source entity id {entity.Id} and target entity id {identity} do not match");
             _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync()
+                .ConfigureAwait(false); ;
         }
 
         public async Task CreateAsync(UserRole entity)
         {
             _context.UserRoles.Add(entity);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync()
+                .ConfigureAwait(false); ;
         }
 
         public async Task DeleteAsync(int identity)
         {
-            var entity = await _context.UserRoles.FindAsync(identity);
+            var entity = await _context.UserRoles.FindAsync(identity)
+                .ConfigureAwait(false); ;
             if (entity == null) return;
             _context.UserRoles.Remove(entity);
             await _context.SaveChangesAsync();
