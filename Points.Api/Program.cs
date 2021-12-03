@@ -1,6 +1,6 @@
-using Exam.Grade;
-using Exam.Grade.Repositories;
-using Exam.Grade.Services;
+using Points.Server;
+using Points.Server.Repositories;
+using Points.Server.Services;
 using Microsoft.OpenApi.Models;
 using Points.DataAccess;
 using Points.DataAccess.Entities;

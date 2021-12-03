@@ -1,10 +1,10 @@
-﻿using Exam.Grade.Services;
+﻿using Points.Server.Services;
 using Microsoft.Extensions.Logging;
 using Points.DataAccess;
 using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
 
-namespace Exam.Grade.Repositories
+namespace Points.Server.Repositories
 {
     public class AccessControlRepository : IAccessControlRepository
     {

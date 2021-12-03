@@ -1,4 +1,4 @@
-using Exam.Grade.Repositories;
+using Points.Server.Repositories;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;

@@ -1,4 +1,4 @@
-﻿namespace Exam.Grade.DomainObjects
+﻿namespace Points.Server.DomainObjects
 {
     public class AccessControl
     {

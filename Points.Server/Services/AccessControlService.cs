@@ -1,9 +1,9 @@
-﻿using Exam.Grade.DomainObjects;
-using Exam.Grade.Repositories;
+﻿using Points.Server.DomainObjects;
+using Points.Server.Repositories;
 using Microsoft.Extensions.Logging;
 using Points.DataAccess.Entities;
 
-namespace Exam.Grade.Services
+namespace Points.Server.Services
 {
     public class AccessControlService : IAccessControlService
     {

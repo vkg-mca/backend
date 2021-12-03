@@ -1,5 +1,5 @@
-﻿using Exam.Grade.DomainObjects;
-using Exam.Grade.Services;
+﻿using Points.Server.DomainObjects;
+using Points.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 

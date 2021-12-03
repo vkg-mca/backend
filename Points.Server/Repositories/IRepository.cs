@@ -1,4 +1,4 @@
-﻿namespace Exam.Grade.Repositories
+﻿namespace Points.Server.Repositories
 {
     public interface IRepository<TEntity, TIdentity>
     {

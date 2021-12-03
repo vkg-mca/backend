@@ -1,6 +1,6 @@
-﻿using Exam.Grade.DomainObjects;
+﻿using Points.Server.DomainObjects;
 
-namespace Exam.Grade.Services
+namespace Points.Server.Services
 {
     public interface IAccessControlService
     {

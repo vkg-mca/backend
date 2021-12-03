@@ -1,6 +1,6 @@
 ﻿using Points.DataAccess.Entities;
 
-namespace Exam.Grade.Repositories
+namespace Points.Server.Repositories
 {
 
     public interface IAccessControlRepository : IRepository<AccessControlEntity, Guid>

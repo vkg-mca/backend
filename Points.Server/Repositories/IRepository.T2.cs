@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Points.Server.Repositories
 {
-    public interface IRepository<in TIdentity, TEntity>
+    public interface IRepositoryV2<in TIdentity, TEntity>
     {
         Task<IEnumerable<TEntity>> GetAllAsync() => throw new NotImplementedException();
         Task<TEntity> GetAsync(TIdentity identity) => throw new NotImplementedException();
