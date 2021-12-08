@@ -24,8 +24,8 @@ namespace Exam.Api.Controllers
         /// Retrieves all permission sets defined in the system
         /// </summary>
         /// <returns>List of permissions</returns>
-        [HttpGet]
-        //[HttpGet("accessControlDetail")]
+        //[HttpGet]
+        [HttpGet("accessControlDetail")]
         public async Task<IEnumerable<AccessControl>> GetAsync()
             => await _accessControlService.GetPermissionsAsync()
             .ConfigureAwait(false);
