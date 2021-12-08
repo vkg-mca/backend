@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Points.Logger\Points.Logger.csproj" />
     <ProjectReference Include="..\Points.Server\Points.Server.csproj" />
   </ItemGroup>
 

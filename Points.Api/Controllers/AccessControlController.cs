@@ -13,22 +13,22 @@ namespace Exam.Api.Controllers
         private readonly ILogger<AccessControlController> _logger;
         private readonly IAccessControlService _accessControlService;
 
-        public AccessControlController(ILogger<AccessControlController> logger, 
+        public AccessControlController(ILogger<AccessControlController> logger,
             IAccessControlService accessControlService)
         {
             _logger = logger;
             _accessControlService = accessControlService;
         }
 
-       /// <summary>
-       /// Retrieves all permission sets defined in the system
-       /// </summary>
-       /// <returns>List of permissions</returns>
-        //[HttpGet]
-        [HttpGet("accessControlDetail")]
+        /// <summary>
+        /// Retrieves all permission sets defined in the system
+        /// </summary>
+        /// <returns>List of permissions</returns>
+        [HttpGet]
+        //[HttpGet("accessControlDetail")]
         public async Task<IEnumerable<AccessControl>> GetAsync()
             => await _accessControlService.GetPermissionsAsync()
-            .ConfigureAwait(false) ;
+            .ConfigureAwait(false);
 
         /// <summary>
         /// Retrieves permissions for specific user
@@ -36,9 +36,16 @@ namespace Exam.Api.Controllers
         /// <param name="userId">user for whom permission is requested</param>
         /// <returns>List of permissions</returns>
         [HttpGet("{userId:required}")]
-        public async Task <AccessControl> Get(string userId)
-            => await _accessControlService.GetPermissionAsync(userId)
-            .ConfigureAwait(false);
+        public async Task<ActionResult<AccessControl>> Get(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                _logger.LogError(userId);
+                return BadRequest();
+            }
+            return await _accessControlService.GetPermissionAsync(userId)
+             .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Creates a new permissions entry in the system
@@ -51,10 +58,10 @@ namespace Exam.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AccessControl>> PostAccessControlPermissionsAsync([FromBody] AccessControl accessControl)
         {
-            if (accessControl.RoleId<=0 || string.IsNullOrWhiteSpace(accessControl.UserId) || !(accessControl.Permissions.Any()))
+            if (accessControl.RoleId <= 0 || string.IsNullOrWhiteSpace(accessControl.UserId) || !(accessControl.Permissions.Any()))
                 return BadRequest();
             await _accessControlService.SavePermissionAsync(accessControl)
-                .ConfigureAwait(false); 
+                .ConfigureAwait(false);
             return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
         }
 
@@ -67,14 +74,14 @@ namespace Exam.Api.Controllers
         [HttpPut()]
         [Route("{userId}")]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(AccessControl),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AccessControl), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AccessControl>> PutAccessControlPermissionsAsync([FromRoute] string userId, [FromBody] AccessControl accessControl)
         {
-            if ( string.IsNullOrWhiteSpace(accessControl.UserId) )
+            if (string.IsNullOrWhiteSpace(accessControl.UserId))
                 return BadRequest();
             await _accessControlService.SavePermissionAsync(accessControl)
-                .ConfigureAwait(false) ;
+                .ConfigureAwait(false);
             return CreatedAtAction(nameof(Get), new { identity = accessControl.UserId }, accessControl);
         }
 

@@ -5,6 +5,8 @@ using Microsoft.OpenApi.Models;
 using Points.DataAccess;
 using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
+using Points.Logger;
+using Points.Entities.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +27,8 @@ builder.Services.AddSingleton(typeof(IDataAccessFacade<>), typeof(DataAccessFaca
 //builder.Services.AddSingleton(typeof(IRepository<,>), typeof(AccessControlRepository<>));
 
 //builder.Services.AddScoped(typeof(IRepository<,>), typeof(AccessControlRepository));
-
+builder.Services.AddSingleton(typeof(ILogger<>), typeof(PointsLogger<>));
+builder.Services.AddSingleton<PointsDbContext, PointsDbContext>();
 builder.Services.AddSingleton<IAccessControlRepositoryV2, AccessControlRepositoryV2>();
 builder.Services.AddSingleton<IAccessControlService, AccessControlServiceV2>();
 

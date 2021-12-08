@@ -21,7 +21,9 @@ namespace Points.Server.Services
         public async Task<AccessControl> GetPermissionAsync(int id)
         {
             if (id == default)
+            {
                 throw new ArgumentException($"Access Control id cannot be an empty/default GUID", nameof(id));
+            }
             var entiry = await _repository.GetAsync(id);
             return new AccessControl();
         }
