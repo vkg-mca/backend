@@ -7,12 +7,16 @@ using Points.DataAccess.Entities;
 using Points.DataAccess.Facades;
 using Points.Logger;
 using Points.Entities.Models;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Configuration;
+using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -29,8 +33,8 @@ builder.Services.AddSingleton(typeof(IDataAccessFacade<>), typeof(DataAccessFaca
 //builder.Services.AddScoped(typeof(IRepository<,>), typeof(AccessControlRepository));
 builder.Services.AddSingleton(typeof(ILogger<>), typeof(PointsLogger<>));
 builder.Services.AddSingleton<PointsDbContext, PointsDbContext>();
-builder.Services.AddSingleton<IAccessControlRepositoryV2, AccessControlRepositoryV2>();
-builder.Services.AddSingleton<IAccessControlService, AccessControlServiceV2>();
+builder.Services.AddSingleton<IAccessControlRepository, AccessControlRepository>();
+builder.Services.AddSingleton<IAccessControlService, AccessControlService>();
 
 var app = builder.Build();
 

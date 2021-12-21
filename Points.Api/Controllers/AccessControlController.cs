@@ -2,6 +2,10 @@
 using Points.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
+using Points.Entities.Models;
+using System.Net;
+
 
 namespace Exam.Api.Controllers
 {
@@ -24,8 +28,9 @@ namespace Exam.Api.Controllers
         /// Retrieves all permission sets defined in the system
         /// </summary>
         /// <returns>List of permissions</returns>
-        //[HttpGet]
-        [HttpGet("accessControlDetail")]
+        //[Authorize]
+        [HttpGet]
+        //[HttpGet("accessControlDetail")]
         public async Task<IEnumerable<AccessControl>> GetAsync()
             => await _accessControlService.GetPermissionsAsync()
             .ConfigureAwait(false);
@@ -38,13 +43,17 @@ namespace Exam.Api.Controllers
         [HttpGet("{userId:required}")]
         public async Task<ActionResult<AccessControl>> Get(string userId)
         {
-            if (string.IsNullOrWhiteSpace(userId))
+            try
             {
-                _logger.LogError(userId);
-                return BadRequest();
+                if (string.IsNullOrWhiteSpace(userId))
+                    return CreateBadRequestResponse(userId, nameof(userId));
+                return await _accessControlService.GetPermissionAsync(userId)
+                 .ConfigureAwait(false);
             }
-            return await _accessControlService.GetPermissionAsync(userId)
-             .ConfigureAwait(false);
+            catch (Exception ex)
+            {
+                return CreateBadRequestResponse(userId, nameof(userId),ex);
+            }
         }
 
         /// <summary>
@@ -101,5 +110,20 @@ namespace Exam.Api.Controllers
                 return BadRequest();
             return true;
         }
+
+        private BadRequestResult CreateBadRequestResponse(string key, string value, Exception? ex)
+        {
+            var reason = ex==null? $"userId cannot be an empty/default":"Something went wrong, please try later";
+            var logEntry = new LogEntry
+            {
+                Code = ex == null ? ArgumentCode.InvalidArgumet: ServerCode.InternalServerError,
+                Message = reason,
+                Context = new Dictionary<string, string> { { key, value } }
+            };
+            _logger.Log(LogLevel.Error, 0, logEntry, null, (state, exception) => ex.Message);
+            return BadRequest();
+        }
+        private BadRequestResult CreateBadRequestResponse(string key, string value)
+            => CreateBadRequestResponse(key,value,null);
     }
 }

@@ -15,16 +15,16 @@ namespace Points.Server.Test.UnitTests
     [Trait("Category", "Unit Test")]
     public class AccessControlRepositoryTest
     {
-        private readonly AccessControlRepositoryV2 _repo;
+        private readonly AccessControlRepository _repo;
         private readonly IDataAccessFacade<AccessControlEntity> _dataAccess;
         private readonly PointsDbContext _context;
-        private readonly ILogger<AccessControlRepositoryV2> _logger;
+        private readonly ILogger<AccessControlRepository> _logger;
         public AccessControlRepositoryTest()
         {
             _dataAccess = A.Fake<IDataAccessFacade<AccessControlEntity>>();
             _context = A.Fake<PointsDbContext>();
-            _logger = A.Fake<ILogger<AccessControlRepositoryV2>>();
-            _repo = new AccessControlRepositoryV2(_context, _logger);
+            _logger = A.Fake<ILogger<AccessControlRepository>>();
+            _repo = new AccessControlRepository(_context, _logger);
         }
         [Fact]
         public async Task CreateAccessControl_WithNullValue_ReturnsArumentNullException()
